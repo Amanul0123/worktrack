@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { authService } from '../services/authService';
-import { setAccessToken, clearAccessToken } from '../services/apiClient';
+import { setAccessToken, clearAccessToken, REFRESH_URL } from '../services/apiClient';
 import api from '../services/apiClient';
 
 const AuthContext = createContext(null);
@@ -24,11 +24,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.post(
-          '/api/auth/refresh',
-          {},
-          { withCredentials: true }
-        );
+        const { data } = await axios.post(REFRESH_URL, {}, { withCredentials: true });
         setAccessToken(data.accessToken);
         await loadUser();
       } catch {

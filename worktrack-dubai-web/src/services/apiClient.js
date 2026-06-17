@@ -1,9 +1,15 @@
 import axios from 'axios';
 
+// In dev: Vite proxy forwards /api → localhost:4000
+// In production: VITE_API_URL must be set to the full backend URL (e.g. https://your-api.onrender.com/api)
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: BASE_URL,
   withCredentials: true,
 });
+
+export const REFRESH_URL = `${BASE_URL}/auth/refresh`;
 
 let accessToken = null;
 
@@ -37,7 +43,6 @@ api.interceptors.response.use(
   async (error) => {
     const original = error.config;
 
-    // Never retry auth endpoints or already-retried requests
     const isAuthEndpoint = AUTH_PATHS.some((p) => original.url?.includes(p));
     if (error.response?.status !== 401 || original._retry || isAuthEndpoint) {
       return Promise.reject(error);
@@ -56,7 +61,7 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const { data } = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
+      const { data } = await axios.post(REFRESH_URL, {}, { withCredentials: true });
       setAccessToken(data.accessToken);
       processQueue(null, data.accessToken);
       original.headers.Authorization = `Bearer ${data.accessToken}`;
@@ -64,7 +69,6 @@ api.interceptors.response.use(
     } catch (err) {
       processQueue(err, null);
       clearAccessToken();
-      // Only redirect if not already on an auth page
       const onAuthPage = ['/login', '/register', '/onboarding'].some(
         (p) => window.location.pathname.startsWith(p)
       );
