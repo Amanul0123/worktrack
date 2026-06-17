@@ -6,16 +6,25 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
-// Allow multiple origins: local dev + deployed frontend
+// Explicit origins from CLIENT_URL (comma-separated)
 const allowedOrigins = env.clientUrl
-  ? env.clientUrl.split(',').map((o) => o.trim())
+  ? env.clientUrl.split(',').map((o) => o.trim()).filter(Boolean)
+  : [];
+
+// Suffix patterns from CORS_PATTERNS (comma-separated) — e.g. ".vercel.app"
+// Lets Vercel preview deployment URLs through without having to enumerate each one.
+const allowedPatterns = process.env.CORS_PATTERNS
+  ? process.env.CORS_PATTERNS.split(',').map((p) => p.trim()).filter(Boolean)
   : [];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (Render health checks, mobile apps, curl)
+    // Allow no-origin requests (health checks, curl, server-to-server)
     if (!origin) return callback(null, true);
+    // Exact match
     if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Suffix/pattern match (e.g. every *.vercel.app URL for this project)
+    if (allowedPatterns.some((p) => origin.endsWith(p))) return callback(null, true);
     callback(new Error(`CORS: origin ${origin} not allowed`));
   },
   credentials: true,
