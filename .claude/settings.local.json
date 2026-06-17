@@ -19,7 +19,13 @@
       "Bash(curl *)",
       "Bash(netstat -ano)",
       "Bash(awk '{print $5}')",
-      "Bash(taskkill //PID 20716 //F)"
+      "Bash(taskkill //PID 20716 //F)",
+      "Bash(NODE_TLS_REJECT_UNAUTHORIZED=0 npm run build)",
+      "Bash(xargs -I {} taskkill //PID {} //F)",
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
