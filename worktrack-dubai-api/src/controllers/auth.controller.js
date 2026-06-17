@@ -2,10 +2,14 @@ const authService = require('../services/auth.service');
 const asyncHandler = require('../utils/asyncHandler');
 const env = require('../config/env');
 
+// Cross-origin deployment (frontend on Netlify/Vercel, API on Render):
+// sameSite must be 'none' + secure:true so the cookie is sent cross-origin.
+// In local dev both run on localhost so 'lax' works without HTTPS.
+const isProd = env.nodeEnv === 'production';
 const COOKIE_OPTS = {
   httpOnly: true,
-  secure: env.nodeEnv === 'production',
-  sameSite: env.nodeEnv === 'production' ? 'strict' : 'lax',
+  secure: isProd,
+  sameSite: isProd ? 'none' : 'lax',
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
@@ -34,7 +38,7 @@ const refresh = asyncHandler(async (req, res) => {
 const logout = asyncHandler(async (req, res) => {
   const token = req.cookies?.refreshToken;
   await authService.logout(token);
-  res.clearCookie('refreshToken');
+  res.clearCookie('refreshToken', { httpOnly: true, secure: isProd, sameSite: isProd ? 'none' : 'lax' });
   res.json({ message: 'Logged out' });
 });
 

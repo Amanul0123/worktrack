@@ -6,10 +6,21 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+// Allow multiple origins: local dev + deployed frontend
+const allowedOrigins = env.clientUrl
+  ? env.clientUrl.split(',').map((o) => o.trim())
+  : [];
+
 app.use(cors({
-  origin: env.clientUrl,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (Render health checks, mobile apps, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin ${origin} not allowed`));
+  },
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
