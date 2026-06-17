@@ -1,0 +1,17 @@
+{
+  "greeting_morning": "صباح الخير",
+  "greeting_afternoon": "مساء الخير",
+  "greeting_evening": "مساء الخير",
+  "total_tasks": "إجمالي المهام",
+  "completed": "مكتملة",
+  "overdue": "متأخرة",
+  "todays_progress": "تقدم اليوم",
+  "tasks_due_today": "مهمة مستحقة اليوم",
+  "no_tasks_today": "لا مهام مستحقة اليوم",
+  "activity": "النشاط",
+  "dashboard": "لوحة التحكم",
+  "overview": "نظرة عامة",
+  "recent_activity": "النشاط الأخير",
+  "no_activity": "لا يوجد نشاط حتى الآن. ابدأ بإضافة مهمتك الأولى.",
+  "completion_rate": "معدل الإنجاز"
+}

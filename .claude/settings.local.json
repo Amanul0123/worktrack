@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm --version)",
+      "Bash(npm config *)",
+      "Bash(npx prisma *)",
+      "Bash(NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma generate)",
+      "Bash(npx vite *)",
+      "Bash(node --check src/server.js)",
+      "Bash(node --check src/app.js)",
+      "Bash(NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma migrate dev --name init)",
+      "Bash(node prisma/seed.js)",
+      "Bash(node src/server.js)",
+      "Bash(curl -s http://localhost:4000/api/health)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "Bash(curl -s -X POST http://localhost:4000/api/auth/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@worktrack.ae\",\"password\":\"Admin@1234\"}')",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const p=JSON.parse\\(d\\); console.log\\('Role:', p.user?.role, '| Name:', p.user?.fullName, '| Token:', p.accessToken ? 'OK' : 'MISSING'\\)\")",
+      "Bash(curl *)",
+      "Bash(netstat -ano)",
+      "Bash(awk '{print $5}')",
+      "Bash(taskkill //PID 20716 //F)"
+    ]
+  }
+}

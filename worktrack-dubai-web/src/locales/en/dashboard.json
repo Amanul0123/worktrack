@@ -1,0 +1,17 @@
+{
+  "greeting_morning": "Good morning",
+  "greeting_afternoon": "Good afternoon",
+  "greeting_evening": "Good evening",
+  "total_tasks": "Total tasks",
+  "completed": "Completed",
+  "overdue": "Overdue",
+  "todays_progress": "Today's progress",
+  "tasks_due_today": "tasks due today",
+  "no_tasks_today": "No tasks due today",
+  "activity": "Activity",
+  "dashboard": "Dashboard",
+  "overview": "Overview",
+  "recent_activity": "Recent activity",
+  "no_activity": "No activity yet. Start by adding your first task.",
+  "completion_rate": "Completion rate"
+}

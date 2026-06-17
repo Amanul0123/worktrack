@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #0A0E1C;
+    color: #F3EFE6;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [lang="ar"] body,
+  [dir="rtl"] body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+  }
+
+  [dir="rtl"] .flip-rtl {
+    transform: scaleX(-1);
+  }
+
+  /* Tabular numbers for stat displays */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .focus-gold {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-midnight;
+  }
+
+  .btn-primary {
+    @apply bg-gold text-midnight font-semibold px-5 py-2.5 rounded-control
+    hover:bg-gold-soft transition-colors duration-150
+    focus-gold disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply border border-surface-raised text-cream px-5 py-2.5 rounded-control
+    hover:bg-surface-raised transition-colors duration-150
+    focus-gold disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply bg-rose/10 text-rose border border-rose/30 px-5 py-2.5 rounded-control
+    hover:bg-rose/20 transition-colors duration-150 focus-gold;
+  }
+
+  .card {
+    @apply bg-surface rounded-card p-5 border border-surface-raised;
+  }
+
+  .input {
+    @apply w-full bg-surface-raised border border-surface-raised rounded-control px-4 py-2.5
+    text-cream placeholder-slate focus:border-gold focus:outline-none
+    transition-colors duration-150;
+  }
+
+  .label {
+    @apply block text-slate text-sm font-medium mb-1.5;
+  }
+}
+
+/* Mashrabiya pattern */
+.mashrabiya-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='0.5' stroke-opacity='0.06'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3Cpath d='M30 10 L50 30 L30 50 L10 30 Z'/%3E%3Cpath d='M30 20 L40 30 L30 40 L20 30 Z'/%3E%3Cline x1='30' y1='0' x2='30' y2='60'/%3E%3Cline x1='0' y1='30' x2='60' y2='30'/%3E%3Cline x1='0' y1='0' x2='60' y2='60'/%3E%3Cline x1='60' y1='0' x2='0' y2='60'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0A0E1C; }
+::-webkit-scrollbar-thumb { background: #1B2438; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #C9A227; }
